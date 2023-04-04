@@ -1,3 +1,10 @@
 .errorMessage {
 	margin: 50px auto;
 }
+
+.thead-light {
+	background-color: lightslategray;
+}
+.thead-light > tr > td {
+	font-weight: bold;
+}

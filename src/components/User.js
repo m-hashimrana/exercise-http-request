@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import TableCell from './TableCell';
 
 const User = ({ data }) => {
 	return (
@@ -6,23 +7,23 @@ const User = ({ data }) => {
 			<table className='table'>
 				<thead className='thead-light'>
 					<tr>
-						<th scope='col'>ID</th>
-						<th scope='col'>Name</th>
-						<th scope='col'>Email</th>
-						<th scope='col'>Phone</th>
-						<th scope='col'>website</th>
-						<th scope='col'>UserName</th>
+						<TableCell title={'ID'} customWidth={'5%'} />
+						<TableCell title={'Name'} customWidth={'20%'} />
+						<TableCell title={'Email'} customWidth={'25%'} />
+						<TableCell title={'Phone'} />
+						<TableCell title={'Website'} customWidth={'15%'} />
+						<TableCell title={'UserName'} customWidth={'10%'} />
 					</tr>
 				</thead>
 				<tbody>
 					{data?.map((user) => (
 						<tr key={user.id}>
-							<th scope='row'>{user?.id}</th>
-							<td>{user?.name}</td>
-							<td>{user?.userName}</td>
-							<td>{user?.email}</td>
-							<td>{user?.phone}</td>
-							<td>{user?.website}</td>
+							<TableCell title={`${user?.id}`} customWidth={'5%'} />
+							<TableCell title={`${user?.name}`} customWidth={'20%'} />
+							<TableCell title={`${user?.email}`} customWidth={'25%'} />
+							<TableCell title={`${user?.phone}`} />
+							<TableCell title={`${user?.website}`} customWidth={'15%'} />
+							<TableCell title={`${user?.username}`} customWidth={'10%'} />
 						</tr>
 					))}
 				</tbody>
