@@ -1,9 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import EditModal from './EditModal';
+import AddUser from './form/AddUser';
 import User from './User';
 
 const Users = () => {
 	const [users, setUsers] = useState([]);
 	const [error, setError] = useState(null);
+	const [isEdit, setIsEdit] = useState(false);
+	const [modalIsOpen, setIsOpen] = useState(false);
+	const [selectUser, setSelectUser] = useState(null);
+
+	function closeModal() {
+		setIsOpen(false);
+	}
+
+	function openModal() {
+		setIsOpen(true);
+	}
 
 	const fetchUsers = async () => {
 		try {
@@ -18,10 +31,29 @@ const Users = () => {
 		}
 	};
 
-	useEffect(() => {
-		fetchUsers();
-	}, []);
-	return <div>{error ? <h3 className='errorMessage'>{error}</h3> : <User data={users} />}</div>;
+	useEffect(
+		useCallback(() => {
+			fetchUsers();
+		}, [fetchUsers]),
+		[]
+	);
+
+	function editClickHandler(user) {
+		setSelectUser(user);
+		setIsEdit(true);
+		setIsOpen(true);
+	}
+
+	return (
+		<div>
+			<button className='button' onClick={() => setIsOpen(true)}>
+				Add User
+			</button>
+			{error ? <h3 className='errorMessage'>{error}</h3> : <User data={users} editClickHandler={editClickHandler} />}
+			{/* <EditModal modalIsOpen={modalIsOpen} selectUser={selectUser} closeModal={closeModal} /> */}
+			<AddUser modalIsOpen={modalIsOpen} closeModal={closeModal} data={users} setUsers={setUsers} isEdit={isEdit} />
+		</div>
+	);
 };
 
 export default Users;

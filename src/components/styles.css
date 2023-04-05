@@ -8,3 +8,32 @@
 .thead-light > tr > td {
 	font-weight: bold;
 }
+
+.edit {
+	padding: 12px;
+	text-decoration: underline !important;
+	color: #007bff !important;
+	cursor: pointer;
+}
+.edit:hover {
+	color: navy !important;
+}
+
+.userForm {
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	margin: 0 auto;
+}
+.ReactModal__Content--after-open {
+	background-color: slategrey !important;
+	height: 500px;
+}
+.button {
+	background-color: skyblue;
+	border: none;
+	outline: none;
+	border-radius: 8px;
+	margin: 10px auto;
+	width: 150px;
+}
