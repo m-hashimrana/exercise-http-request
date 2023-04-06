@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import EditModal from './EditModal';
 import AddUser from './form/AddUser';
 import User from './User';
 
@@ -50,8 +49,15 @@ const Users = () => {
 				Add User
 			</button>
 			{error ? <h3 className='errorMessage'>{error}</h3> : <User data={users} editClickHandler={editClickHandler} />}
-			{/* <EditModal modalIsOpen={modalIsOpen} selectUser={selectUser} closeModal={closeModal} /> */}
-			<AddUser modalIsOpen={modalIsOpen} closeModal={closeModal} data={users} setUsers={setUsers} isEdit={isEdit} />
+			<AddUser
+				modalIsOpen={modalIsOpen}
+				closeModal={closeModal}
+				data={users}
+				setUsers={setUsers}
+				selectUser={selectUser}
+				setSelectUser={setSelectUser}
+				isEdit={isEdit}
+			/>
 		</div>
 	);
 };

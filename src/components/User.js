@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import EditModal from './EditModal';
 import TableCell from './TableCell';
 
 const User = ({ data, editClickHandler }) => {
