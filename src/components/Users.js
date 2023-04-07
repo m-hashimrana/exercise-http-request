@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { fetchUsers } from '../utils/api';
 import AddUser from './form/AddUser';
 import User from './User';
 
@@ -15,22 +16,9 @@ const Users = () => {
 		setIsEdit(false);
 	}
 
-	const fetchUsers = async () => {
-		try {
-			const response = await fetch('https://jsonplaceholder.typicode.com/users');
-			if (!response?.ok) {
-				throw new Error('Something went wrong!');
-			}
-			const data = await response.json();
-			setUsers(data);
-		} catch (error) {
-			setError('Something went wrong!');
-		}
-	};
-
 	useEffect(
 		useCallback(() => {
-			fetchUsers();
+			fetchUsers(setUsers, setError);
 		}, [fetchUsers]),
 		[]
 	);

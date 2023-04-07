@@ -1,3 +1,16 @@
+export const fetchUsers = async (setUsers, setError) => {
+	try {
+		const response = await fetch('https://jsonplaceholder.typicode.com/users');
+		if (!response?.ok) {
+			throw new Error('Something went wrong!');
+		}
+		const data = await response.json();
+		setUsers(data);
+	} catch (error) {
+		setError('Something went wrong!');
+	}
+};
+
 export const handleUserSubmission = async (isEdit, selectUser, data, setUsers, setSelectUser, closeModal) => {
 	try {
 		if (isEdit) {
