@@ -8,23 +8,27 @@ const Users = () => {
 	const [error, setError] = useState(null);
 	const [isEdit, setIsEdit] = useState(false);
 	const [modalIsOpen, setIsOpen] = useState(false);
-	const [selectUser, setSelectUser] = useState(null);
+	const [selectedUser, setSelectedUser] = useState(null);
 
-	function closeModal() {
+	const closeModal = () => {
 		setIsOpen(false);
-		setSelectUser(null);
+		setSelectedUser(null);
 		setIsEdit(false);
-	}
+	};
 
-	useEffect(
-		useCallback(() => {
-			fetchUsers(setUsers, setError);
-		}, [fetchUsers]),
-		[]
-	);
+	// useEffect(
+	// 	useCallback(() => {
+	// 		fetchUsers(setUsers, setError);
+	// 	}, [fetchUsers]),
+	// 	[]
+	// );
+	useEffect(() => {
+		console.log('hello');
+		fetchUsers(setUsers, setError);
+	}, [fetchUsers]);
 
 	function editClickHandler(user) {
-		setSelectUser(user);
+		setSelectedUser(user);
 		setIsEdit(true);
 		setIsOpen(true);
 	}
@@ -40,8 +44,8 @@ const Users = () => {
 				closeModal={closeModal}
 				data={users}
 				setUsers={setUsers}
-				selectUser={selectUser}
-				setSelectUser={setSelectUser}
+				selectedUser={selectedUser}
+				setSelectedUser={setSelectedUser}
 				isEdit={isEdit}
 			/>
 		</div>

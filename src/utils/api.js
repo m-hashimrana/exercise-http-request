@@ -1,6 +1,8 @@
+import { userUrl } from './constants/urlConstants';
+
 export const fetchUsers = async (setUsers, setError) => {
 	try {
-		const response = await fetch('https://jsonplaceholder.typicode.com/users');
+		const response = await fetch(`${userUrl}`);
 		if (!response?.ok) {
 			throw new Error('Something went wrong!');
 		}
@@ -11,15 +13,16 @@ export const fetchUsers = async (setUsers, setError) => {
 	}
 };
 
-export const handleUserSubmission = async (isEdit, selectUser, data, setUsers, setSelectUser, closeModal) => {
+export const handleUserSubmission = async (isEdit, selectedUser, data, setUsers, setSelectedUser, closeModal) => {
 	try {
 		if (isEdit) {
 			let updatedUser = [
 				{
-					...selectUser,
+					...selectedUser,
 				},
 			];
-			const response = await fetch(`https://jsonplaceholder.typicode.com/users/${selectUser.id}`, {
+			console.log(userUrl);
+			const response = await fetch(`${userUrl}/${selectedUser.id}`, {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
@@ -30,32 +33,32 @@ export const handleUserSubmission = async (isEdit, selectUser, data, setUsers, s
 				throw new Error('Failed to update user!');
 			}
 
-			const toBeUpdated = data?.find((user) => user.id === selectUser?.id);
-			const userIndex = data?.findIndex((user) => user.id === selectUser.id);
+			const toBeUpdated = data?.find((user) => user.id === selectedUser?.id);
+			const userIndex = data?.findIndex((user) => user.id === selectedUser.id);
 			if (toBeUpdated) {
-				setSelectUser({
-					...selectUser,
+				setSelectedUser({
+					...selectedUser,
 				});
 			}
 			let updatedUserAtIndex = [...data];
-			updatedUserAtIndex[userIndex] = selectUser;
+			updatedUserAtIndex[userIndex] = selectedUser;
 			setUsers(updatedUserAtIndex);
 			closeModal();
 		} else {
 			const user_id = data[data.length - 1].id + 1;
-			const response = await fetch('https://jsonplaceholder.typicode.com/users', {
+			const response = await fetch(`${userUrl}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify(selectUser),
+				body: JSON.stringify(selectedUser),
 			});
 
 			if (!response.ok) {
 				throw new Error('Failed to create user!');
 			}
 			closeModal();
-			setUsers([...data, { ...selectUser, id: user_id }]);
+			setUsers([...data, { ...selectedUser, id: user_id }]);
 		}
 	} catch (error) {
 		console.error(error);
