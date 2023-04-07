@@ -1,4 +1,4 @@
-import { userUrl } from './constants/urlConstants';
+import { userUrl } from '../constants/urlConstants';
 
 export const fetchUsers = async (setUsers, setError) => {
 	try {

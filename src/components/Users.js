@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { fetchUsers } from '../utils/api';
+import { fetchUsers } from '../utils/services/api';
 import AddUser from './form/AddUser';
 import User from './User';
 

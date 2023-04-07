@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
-import { handleUserSubmission } from '../../utils/api';
+import { handleUserSubmission } from '../../utils/services/api';
 import Label from './Label';
 
 const customStyles = {
