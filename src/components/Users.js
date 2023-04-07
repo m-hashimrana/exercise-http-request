@@ -8,7 +8,6 @@ const Users = () => {
 	const [isEdit, setIsEdit] = useState(false);
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [selectUser, setSelectUser] = useState();
-	const [isCreate, setIsCreate] = useState(false);
 
 	function closeModal() {
 		setIsOpen(false);
