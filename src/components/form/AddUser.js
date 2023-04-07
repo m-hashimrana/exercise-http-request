@@ -13,11 +13,14 @@ const customStyles = {
 
 const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser, setSelectedUser }) => {
 	const onChangeHandler = (e) => {
+		if (e.target.value === '') {
+			return;
+		}
 		setSelectedUser({ ...selectedUser, [e.target.name]: e.target.value });
 	};
 	const submissionHandler = async (e) => {
 		e.preventDefault();
-		handleUserSubmission(isEdit, selectedUser, data, setUsers, setSelectedUser, closeModal);
+		handleUserSubmission(selectedUser, data, setUsers, setSelectedUser, closeModal);
 	};
 
 	return (
@@ -25,7 +28,7 @@ const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser
 			<span className='cross' onClick={closeModal}>
 				X
 			</span>
-			<h4 style={{ textAlign: 'center' }}>{isEdit ? 'Update User' : 'Add New User'}</h4>
+			<h4 style={{ textAlign: 'center' }}>{selectedUser?.id ? 'Update User' : 'Add New User'}</h4>
 			<form className='userForm' type={'submit'} onChange={onChangeHandler} onSubmit={submissionHandler}>
 				<Input name={'name'} label={'Name'} type={'text'} value={selectedUser?.name} />
 				<Input name={'phone'} label={'Phone'} type={'text'} value={selectedUser?.phone} />
@@ -33,7 +36,7 @@ const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser
 				<Input name={'email'} label={'Email'} type={'text'} value={selectedUser?.email} />
 				<Input name={'username'} label={'UserName'} type={'text'} value={selectedUser?.username} />
 
-				<button className='button'>{isEdit ? 'Update' : 'Submit'}</button>
+				<button className='button'>{selectedUser?.id ? 'Update' : 'Submit'}</button>
 			</form>
 		</Modal>
 	);

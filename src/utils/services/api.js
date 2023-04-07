@@ -13,9 +13,10 @@ export const fetchUsers = async (setUsers, setError) => {
 	}
 };
 
-export const handleUserSubmission = async (isEdit, selectedUser, data, setUsers, setSelectedUser, closeModal) => {
+export const handleUserSubmission = async (selectedUser, data, setUsers, setSelectedUser, closeModal) => {
+	console.log(selectedUser);
 	try {
-		if (isEdit) {
+		if (selectedUser?.id) {
 			let updatedUser = [
 				{
 					...selectedUser,
