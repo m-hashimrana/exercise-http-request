@@ -12,6 +12,7 @@ const Users = () => {
 	function closeModal() {
 		setIsOpen(false);
 		setSelectUser(null);
+		setIsEdit(false);
 	}
 
 	const fetchUsers = async () => {

@@ -75,7 +75,7 @@ const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectUser, 
 			<span className='cross' onClick={closeModal}>
 				X
 			</span>
-			<h4 style={{ textAlign: 'center' }}>Add New User</h4>
+			<h4 style={{ textAlign: 'center' }}>{isEdit ? 'Update User' : 'Add New User'}</h4>
 			<form className='userForm' type={'submit'} onChange={onChangeHandler} onSubmit={submissionHandler}>
 				<Label title={'Name'} htmlFor={'name'} />
 				<input name='name' type={'text'} value={selectUser?.name} />
@@ -92,7 +92,7 @@ const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectUser, 
 				<Label title={'username'} htmlFor={'username'} />
 				<input name='username' type={'text'} value={selectUser?.username} />
 
-				<button className='button'>Submit</button>
+				<button className='button'>{isEdit ? 'Update' : 'Submit'}</button>
 			</form>
 		</Modal>
 	);
