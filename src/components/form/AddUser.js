@@ -21,6 +21,25 @@ const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser
 	const submissionHandler = async (e) => {
 		e.preventDefault();
 		handleUserSubmission(selectedUser, data, setUsers, setSelectedUser, closeModal);
+
+		if (selectedUser?.id) {
+			const toBeUpdated = data?.find((user) => user.id === selectedUser?.id);
+			const userIndex = data?.findIndex((user) => user.id === selectedUser.id);
+			if (toBeUpdated) {
+				setSelectedUser({
+					...selectedUser,
+				});
+			}
+			let updatedUserAtIndex = [...data];
+			updatedUserAtIndex[userIndex] = selectedUser;
+			setUsers(updatedUserAtIndex);
+			closeModal();
+		} else {
+			const user_id = data[data.length - 1].id + 1;
+
+			closeModal();
+			setUsers([...data, { ...selectedUser, id: user_id }]);
+		}
 	};
 
 	return (

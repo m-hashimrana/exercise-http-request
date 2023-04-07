@@ -14,6 +14,8 @@ const Users = () => {
 		setSelectedUser(null);
 	};
 
+	const fetchUserList = () => {};
+
 	useEffect(() => {
 		fetchUsers(setUsers, setError);
 	}, [fetchUsers]);
