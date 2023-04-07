@@ -7,15 +7,11 @@ const Users = () => {
 	const [error, setError] = useState(null);
 	const [isEdit, setIsEdit] = useState(false);
 	const [modalIsOpen, setIsOpen] = useState(false);
-	const [selectUser, setSelectUser] = useState();
+	const [selectUser, setSelectUser] = useState(null);
 
 	function closeModal() {
 		setIsOpen(false);
-		setSelectUser();
-	}
-
-	function openModal() {
-		setIsOpen(true);
+		setSelectUser(null);
 	}
 
 	const fetchUsers = async () => {

@@ -10,7 +10,7 @@ const customStyles = {
 	},
 };
 
-const handleUserSubmission = async (isEdit, selectUser, data, setUsers, setSelectUser) => {
+const handleUserSubmission = async (isEdit, selectUser, data, setUsers, setSelectUser, closeModal) => {
 	try {
 		if (isEdit) {
 			let updatedUser = [
@@ -39,7 +39,7 @@ const handleUserSubmission = async (isEdit, selectUser, data, setUsers, setSelec
 			let updatedUserAtIndex = [...data];
 			updatedUserAtIndex[userIndex] = selectUser;
 			setUsers(updatedUserAtIndex);
-			setSelectUser(null);
+			closeModal();
 		} else {
 			const user_id = data[data.length - 1].id + 1;
 			const response = await fetch('https://jsonplaceholder.typicode.com/users', {
@@ -50,11 +50,11 @@ const handleUserSubmission = async (isEdit, selectUser, data, setUsers, setSelec
 				body: JSON.stringify(selectUser),
 			});
 
-			setUsers([...data, { ...selectUser, id: user_id }]);
-
 			if (!response.ok) {
 				throw new Error('Failed to create user!');
 			}
+			closeModal();
+			setUsers([...data, { ...selectUser, id: user_id }]);
 		}
 	} catch (error) {
 		console.error(error);
@@ -67,7 +67,7 @@ const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectUser, 
 	};
 	const submissionHandler = async (e) => {
 		e.preventDefault();
-		handleUserSubmission(isEdit, selectUser, data, setUsers, setSelectUser);
+		handleUserSubmission(isEdit, selectUser, data, setUsers, setSelectUser, closeModal);
 	};
 
 	return (
