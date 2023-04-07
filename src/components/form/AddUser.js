@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { handleUserSubmission } from '../../utils/services/api';
-import Label from './Label';
+import Input from '../common/Input';
 
 const customStyles = {
 	content: {
@@ -27,20 +27,11 @@ const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser
 			</span>
 			<h4 style={{ textAlign: 'center' }}>{isEdit ? 'Update User' : 'Add New User'}</h4>
 			<form className='userForm' type={'submit'} onChange={onChangeHandler} onSubmit={submissionHandler}>
-				<Label title={'Name'} htmlFor={'name'} />
-				<input name='name' type={'text'} value={selectedUser?.name} />
-
-				<Label title={'Phone'} htmlFor={'phone'} />
-				<input name='phone' type={'text'} value={selectedUser?.phone} />
-
-				<Label title={'Website'} htmlFor={'website'} />
-				<input name='website' type={'text'} value={selectedUser?.website} />
-
-				<Label title={'Email'} htmlFor={'email'} />
-				<input name='email' type={'email'} value={selectedUser?.email} />
-
-				<Label title={'username'} htmlFor={'username'} />
-				<input name='username' type={'text'} value={selectedUser?.username} />
+				<Input name={'name'} label={'Name'} type={'text'} value={selectedUser?.name} />
+				<Input name={'phone'} label={'Phone'} type={'text'} value={selectedUser?.phone} />
+				<Input name={'website'} label={'Website'} type={'text'} value={selectedUser?.website} />
+				<Input name={'email'} label={'Email'} type={'text'} value={selectedUser?.email} />
+				<Input name={'username'} label={'UserName'} type={'text'} value={selectedUser?.username} />
 
 				<button className='button'>{isEdit ? 'Update' : 'Submit'}</button>
 			</form>

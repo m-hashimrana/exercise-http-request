@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { fetchUsers } from '../utils/services/api';
-import AddUser from './form/AddUser';
-import User from './User';
+import { fetchUsers } from '../../utils/services/api';
+import AddUser from '../form/AddUser';
+import User from '../User';
 
 const Users = () => {
 	const [users, setUsers] = useState([]);
