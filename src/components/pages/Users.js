@@ -14,11 +14,17 @@ const Users = () => {
 		setSelectedUser(null);
 	};
 
-	const fetchUserList = () => {};
+	const fetchUserList = useCallback(() => {
+		try {
+			fetchUsers(setUsers, setError);
+		} catch (error) {
+			setError(error);
+		}
+	}, []);
 
 	useEffect(() => {
-		fetchUsers(setUsers, setError);
-	}, [fetchUsers]);
+		fetchUserList();
+	}, [fetchUserList]);
 
 	const editClickHandler = (user) => {
 		setSelectedUser(user);
@@ -38,6 +44,8 @@ const Users = () => {
 				setUsers={setUsers}
 				selectedUser={selectedUser}
 				setSelectedUser={setSelectedUser}
+				error={error}
+				setError={setError}
 			/>
 		</div>
 	);

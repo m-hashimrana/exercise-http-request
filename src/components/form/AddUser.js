@@ -11,34 +11,39 @@ const customStyles = {
 	},
 };
 
-const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser, setSelectedUser }) => {
+const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser, setSelectedUser, setError }) => {
 	const onChangeHandler = (e) => {
 		if (e.target.value === '') {
 			return;
 		}
 		setSelectedUser({ ...selectedUser, [e.target.name]: e.target.value });
 	};
+
 	const submissionHandler = async (e) => {
 		e.preventDefault();
-		handleUserSubmission(selectedUser, data, setUsers, setSelectedUser, closeModal);
+		try {
+			handleUserSubmission(selectedUser);
 
-		if (selectedUser?.id) {
-			const toBeUpdated = data?.find((user) => user.id === selectedUser?.id);
-			const userIndex = data?.findIndex((user) => user.id === selectedUser.id);
-			if (toBeUpdated) {
-				setSelectedUser({
-					...selectedUser,
-				});
+			if (selectedUser?.id) {
+				const toBeUpdated = data?.find((user) => user.id === selectedUser?.id);
+				const userIndex = data?.findIndex((user) => user.id === selectedUser.id);
+				if (toBeUpdated) {
+					setSelectedUser({
+						...selectedUser,
+					});
+				}
+				let updatedUserAtIndex = [...data];
+				updatedUserAtIndex[userIndex] = selectedUser;
+				setUsers(updatedUserAtIndex);
+				closeModal();
+			} else {
+				const user_id = data[data.length - 1].id + 1;
+
+				closeModal();
+				setUsers([...data, { ...selectedUser, id: user_id }]);
 			}
-			let updatedUserAtIndex = [...data];
-			updatedUserAtIndex[userIndex] = selectedUser;
-			setUsers(updatedUserAtIndex);
-			closeModal();
-		} else {
-			const user_id = data[data.length - 1].id + 1;
-
-			closeModal();
-			setUsers([...data, { ...selectedUser, id: user_id }]);
+		} catch (error) {
+			setError(error);
 		}
 	};
 

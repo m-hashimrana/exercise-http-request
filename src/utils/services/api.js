@@ -1,7 +1,6 @@
 import { userUrl } from '../constants/urlConstants';
-import { handleUpdateLogic } from './updateLogic';
 
-export const fetchUsers = async (setUsers, setError) => {
+export const fetchUsers = async (setUsers) => {
 	const response = await fetch(`${userUrl}`);
 	if (!response?.ok) {
 		throw new Error('Something went wrong!');
