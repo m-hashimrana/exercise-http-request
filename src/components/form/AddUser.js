@@ -19,10 +19,8 @@ const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser
 	};
 
 	const onChangeHandler = (e) => {
-		if (e.target.value === '') {
-			return;
-		}
 		handleDisappearError();
+
 		setSelectedUser({ ...selectedUser, [e.target.name]: e.target.value });
 	};
 
@@ -41,7 +39,7 @@ const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser
 			requiredField.phone &&
 			(!selectedUser?.phone || selectedUser.phone.length !== 11 || isNaN(selectedUser.phone))
 		) {
-			setFormError((prevFormError) => ({ ...prevFormError, phone: 'phone must be exactly 12 digits' }));
+			setFormError((prevFormError) => ({ ...prevFormError, phone: 'phone must be exactly 1 digits' }));
 			return;
 		}
 
@@ -76,7 +74,6 @@ const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser
 				X
 			</span>
 			<h4 style={{ textAlign: 'center' }}>{selectedUser?.id ? 'Update User' : 'Add New User'}</h4>
-			{/* {formError && <p className='errorMessage'>{formError}</p>} */}
 			<form className='userForm' type={'submit'} onChange={onChangeHandler} onSubmit={submissionHandler}>
 				<Input name={'name'} label={'Name'} type={'text'} value={selectedUser?.name} formError={formError['name']} />
 				<Input
