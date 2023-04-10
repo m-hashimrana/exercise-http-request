@@ -22,7 +22,12 @@ const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser
 		if (e.target.value === '') {
 			return;
 		}
+		handleDisappearError();
 		setSelectedUser({ ...selectedUser, [e.target.name]: e.target.value });
+	};
+
+	const handleDisappearError = () => {
+		setFormError({});
 	};
 
 	const submissionHandler = async (e) => {
