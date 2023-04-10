@@ -27,7 +27,7 @@
 }
 .ReactModal__Content--after-open {
 	background-color: slategrey !important;
-	height: 500px;
+	height: 60vh;
 }
 .button {
 	background-color: skyblue;
@@ -59,4 +59,10 @@ input {
 }
 label {
 	font-weight: 500;
+}
+.errorMessage {
+	color: red;
+	font-size: 14px;
+	font-weight: 400;
+	margin: unset;
 }

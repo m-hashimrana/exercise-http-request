@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { handleUserSubmission } from '../../utils/services/api';
 import Input from '../common/Input';
@@ -12,6 +12,12 @@ const customStyles = {
 };
 
 const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser, setSelectedUser, setError }) => {
+	const [formError, setFormError] = useState({});
+	const requiredField = {
+		name: true,
+		phone: true,
+	};
+
 	const onChangeHandler = (e) => {
 		if (e.target.value === '') {
 			return;
@@ -21,9 +27,18 @@ const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser
 
 	const submissionHandler = async (e) => {
 		e.preventDefault();
+
+		if (requiredField.name && !selectedUser?.name) {
+			setFormError((prevFormError) => ({ ...prevFormError, name: 'name is required' }));
+			return;
+		}
+		if (requiredField.phone && !selectedUser?.phone) {
+			setFormError((prevFormError) => ({ ...prevFormError, phone: 'phone is required' }));
+			return;
+		}
+
 		try {
 			handleUserSubmission(selectedUser);
-
 			if (selectedUser?.id) {
 				const toBeUpdated = data?.find((user) => user.id === selectedUser?.id);
 				const userIndex = data?.findIndex((user) => user.id === selectedUser.id);
@@ -53,9 +68,16 @@ const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser
 				X
 			</span>
 			<h4 style={{ textAlign: 'center' }}>{selectedUser?.id ? 'Update User' : 'Add New User'}</h4>
+			{/* {formError && <p className='errorMessage'>{formError}</p>} */}
 			<form className='userForm' type={'submit'} onChange={onChangeHandler} onSubmit={submissionHandler}>
-				<Input name={'name'} label={'Name'} type={'text'} value={selectedUser?.name} />
-				<Input name={'phone'} label={'Phone'} type={'text'} value={selectedUser?.phone} />
+				<Input name={'name'} label={'Name'} type={'text'} value={selectedUser?.name} formError={formError['name']} />
+				<Input
+					name={'phone'}
+					label={'Phone'}
+					type={'text'}
+					value={selectedUser?.phone}
+					formError={formError['phone']}
+				/>
 				<Input name={'website'} label={'Website'} type={'text'} value={selectedUser?.website} />
 				<Input name={'email'} label={'Email'} type={'text'} value={selectedUser?.email} />
 				<Input name={'username'} label={'UserName'} type={'text'} value={selectedUser?.username} />
