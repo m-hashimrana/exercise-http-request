@@ -25,7 +25,7 @@ const User = ({ data, editClickHandler }) => {
 							<TableCell title={`${user?.phone}`} />
 							<TableCell title={`${user?.website}`} customWidth={'15%'} />
 							<TableCell title={`${user?.username}`} customWidth={'10%'} />
-							<TableCell title={`Edit`} onClick={() => editClickHandler(user)} customWidth={'10%'} />
+							<TableCell title={`Edit`} onEdit={() => editClickHandler(user)} customWidth={'10%'} />
 						</tr>
 					))}
 				</tbody>

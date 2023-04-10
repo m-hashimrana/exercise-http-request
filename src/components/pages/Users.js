@@ -9,7 +9,7 @@ const Users = () => {
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [selectedUser, setSelectedUser] = useState(null);
 
-	const closeModal = () => {
+	const onModalClose = () => {
 		setIsOpen(false);
 		setSelectedUser(null);
 	};
@@ -39,7 +39,7 @@ const Users = () => {
 			{error ? <h3 className='errorMessage'>{error}</h3> : <User data={users} editClickHandler={editClickHandler} />}
 			<AddUser
 				modalIsOpen={modalIsOpen}
-				closeModal={closeModal}
+				onModalClose={onModalClose}
 				data={users}
 				setUsers={setUsers}
 				selectedUser={selectedUser}

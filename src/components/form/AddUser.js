@@ -11,7 +11,7 @@ const customStyles = {
 	},
 };
 
-const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser, setSelectedUser, setError }) => {
+const AddUser = ({ modalIsOpen, onModalClose, data, setUsers, isEdit, selectedUser, setSelectedUser, setError }) => {
 	const [formError, setFormError] = useState({});
 	const requiredField = {
 		name: true,
@@ -20,7 +20,6 @@ const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser
 
 	const onChangeHandler = (e) => {
 		handleDisappearError();
-
 		setSelectedUser({ ...selectedUser, [e.target.name]: e.target.value });
 	};
 
@@ -39,7 +38,7 @@ const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser
 			requiredField.phone &&
 			(!selectedUser?.phone || selectedUser.phone.length !== 11 || isNaN(selectedUser.phone))
 		) {
-			setFormError((prevFormError) => ({ ...prevFormError, phone: 'phone must be exactly 1 digits' }));
+			setFormError((prevFormError) => ({ ...prevFormError, phone: 'phone must be exactly 11 digits' }));
 			return;
 		}
 
@@ -56,11 +55,11 @@ const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser
 				let updatedUserAtIndex = [...data];
 				updatedUserAtIndex[userIndex] = selectedUser;
 				setUsers(updatedUserAtIndex);
-				closeModal();
+				onModalClose();
 			} else {
 				const user_id = data[data.length - 1].id + 1;
 
-				closeModal();
+				onModalClose();
 				setUsers([...data, { ...selectedUser, id: user_id }]);
 			}
 		} catch (error) {
@@ -69,8 +68,8 @@ const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser
 	};
 
 	return (
-		<Modal isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel='Example Modal' style={customStyles}>
-			<span className='cross' onClick={closeModal}>
+		<Modal isOpen={modalIsOpen} onRequestClose={onModalClose} contentLabel='Example Modal' style={customStyles}>
+			<span className='cross' onClick={onModalClose}>
 				X
 			</span>
 			<h4 style={{ textAlign: 'center' }}>{selectedUser?.id ? 'Update User' : 'Add New User'}</h4>
