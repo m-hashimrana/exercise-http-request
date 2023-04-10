@@ -1,9 +1,11 @@
 import { userUrl } from '../constants/urlConstants';
+import { toast } from 'react-toastify';
 
-export const fetchUsers = async (setUsers) => {
+export const fetchUsers = async (setUsers, setError) => {
 	const response = await fetch(`${userUrl}`);
 	if (!response?.ok) {
-		throw new Error('Something went wrong!');
+		setError('something went wrong');
+		toast.error('something went wrong', { toastId: '' });
 	}
 	const data = await response.json();
 	setUsers(data);

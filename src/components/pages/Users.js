@@ -45,7 +45,13 @@ const Users = () => {
 			<button className='button' onClick={() => setIsOpen(true)}>
 				Add User
 			</button>
-			{error ? <h3 className='errorMessage'>{error}</h3> : <User data={users} editClickHandler={editClickHandler} />}
+			{error ? (
+				<h1 className='errorMessage' style={{ fontSize: '20px', fontWeight: 'bolder' }}>
+					{error}
+				</h1>
+			) : (
+				<User data={users} editClickHandler={editClickHandler} />
+			)}
 			<AddUser
 				modalIsOpen={modalIsOpen}
 				onModalClose={onModalClose}
