@@ -11,20 +11,23 @@ const customStyles = {
 	},
 };
 
-const AddUser = ({ modalIsOpen, onModalClose, data, setUsers, isEdit, selectedUser, setSelectedUser, setError }) => {
-	const [formError, setFormError] = useState({});
+const AddUser = ({
+	modalIsOpen,
+	onModalClose,
+	data,
+	setUsers,
+	isEdit,
+	selectedUser,
+	setSelectedUser,
+	error,
+	setError,
+	onChangeHandler,
+	formError,
+	setFormError,
+}) => {
 	const requiredField = {
 		name: true,
 		phone: true,
-	};
-
-	const onChangeHandler = (e) => {
-		handleDisappearError();
-		setSelectedUser({ ...selectedUser, [e.target.name]: e.target.value });
-	};
-
-	const handleDisappearError = () => {
-		setFormError({});
 	};
 
 	const submissionHandler = async (e) => {

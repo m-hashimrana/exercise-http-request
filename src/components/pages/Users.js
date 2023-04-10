@@ -8,6 +8,15 @@ const Users = () => {
 	const [error, setError] = useState(null);
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [selectedUser, setSelectedUser] = useState(null);
+	const [formError, setFormError] = useState({});
+
+	const handleDisappearError = () => {
+		setFormError({});
+	};
+	const onChangeHandler = (e) => {
+		handleDisappearError();
+		setSelectedUser({ ...selectedUser, [e.target.name]: e.target.value });
+	};
 
 	const onModalClose = () => {
 		setIsOpen(false);
@@ -46,6 +55,10 @@ const Users = () => {
 				setSelectedUser={setSelectedUser}
 				error={error}
 				setError={setError}
+				handleDisappearError={handleDisappearError}
+				onChangeHandler={onChangeHandler}
+				formError={formError}
+				setFormError={setFormError}
 			/>
 		</div>
 	);
