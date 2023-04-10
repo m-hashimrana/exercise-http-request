@@ -37,8 +37,11 @@ const AddUser = ({ modalIsOpen, closeModal, data, setUsers, isEdit, selectedUser
 			setFormError((prevFormError) => ({ ...prevFormError, name: 'name is required' }));
 			return;
 		}
-		if (requiredField.phone && !selectedUser?.phone) {
-			setFormError((prevFormError) => ({ ...prevFormError, phone: 'phone is required' }));
+		if (
+			requiredField.phone &&
+			(!selectedUser?.phone || selectedUser.phone.length !== 11 || isNaN(selectedUser.phone))
+		) {
+			setFormError((prevFormError) => ({ ...prevFormError, phone: 'phone must be exactly 12 digits' }));
 			return;
 		}
 
