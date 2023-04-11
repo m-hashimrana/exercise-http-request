@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Modal from 'react-modal';
+import { toast } from 'react-toastify';
 import { handleUserSubmission } from '../../utils/services/api';
 import Input from '../common/Input';
 
@@ -14,16 +15,13 @@ const customStyles = {
 const AddUser = ({
 	modalIsOpen,
 	onModalClose,
-	data,
-	setUsers,
-	isEdit,
 	selectedUser,
-	setSelectedUser,
-	error,
 	setError,
 	onChangeHandler,
 	formError,
 	setFormError,
+	updatedUserHandler,
+	addUserHandler,
 }) => {
 	const requiredField = {
 		name: true,
@@ -48,22 +46,11 @@ const AddUser = ({
 		try {
 			handleUserSubmission(selectedUser);
 			if (selectedUser?.id) {
-				const toBeUpdated = data?.find((user) => user.id === selectedUser?.id);
-				const userIndex = data?.findIndex((user) => user.id === selectedUser.id);
-				if (toBeUpdated) {
-					setSelectedUser({
-						...selectedUser,
-					});
-				}
-				let updatedUserAtIndex = [...data];
-				updatedUserAtIndex[userIndex] = selectedUser;
-				setUsers(updatedUserAtIndex);
-				onModalClose();
+				updatedUserHandler();
+				toast('Updated the user successfully');
 			} else {
-				const user_id = data[data.length - 1].id + 1;
-
-				onModalClose();
-				setUsers([...data, { ...selectedUser, id: user_id }]);
+				addUserHandler();
+				toast.success('User is Added successfully');
 			}
 		} catch (error) {
 			setError(error);

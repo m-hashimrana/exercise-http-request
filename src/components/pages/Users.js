@@ -40,6 +40,27 @@ const Users = () => {
 		setIsOpen(true);
 	};
 
+	const updatedUserHandler = () => {
+		const toBeUpdated = users?.find((user) => user.id === selectedUser?.id);
+		const userIndex = users?.findIndex((user) => user.id === selectedUser.id);
+		if (toBeUpdated) {
+			setSelectedUser({
+				...selectedUser,
+			});
+		}
+		let updatedUserAtIndex = [...users];
+		updatedUserAtIndex[userIndex] = selectedUser;
+		setUsers(updatedUserAtIndex);
+		onModalClose();
+	};
+
+	const addUserHandler = () => {
+		const user_id = users[users.length - 1].id + 1;
+
+		onModalClose();
+		setUsers([...users, { ...selectedUser, id: user_id }]);
+	};
+
 	return (
 		<div>
 			<button className='button' onClick={() => setIsOpen(true)}>
@@ -55,16 +76,14 @@ const Users = () => {
 			<AddUser
 				modalIsOpen={modalIsOpen}
 				onModalClose={onModalClose}
-				data={users}
-				setUsers={setUsers}
 				selectedUser={selectedUser}
-				setSelectedUser={setSelectedUser}
-				error={error}
 				setError={setError}
 				handleDisappearError={handleDisappearError}
 				onChangeHandler={onChangeHandler}
 				formError={formError}
 				setFormError={setFormError}
+				updatedUserHandler={updatedUserHandler}
+				addUserHandler={addUserHandler}
 			/>
 		</div>
 	);
