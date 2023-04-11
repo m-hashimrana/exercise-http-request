@@ -49,7 +49,7 @@ const Users = () => {
 
 	const fetchUserList = useCallback(() => {
 		try {
-			fetchUsers(setUsers, setError);
+			fetchUsers(setUsers);
 		} catch (error) {
 			setError(error);
 		}
