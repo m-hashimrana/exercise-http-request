@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { fetchUsers } from '../../utils/services/api';
+import { toast } from 'react-toastify';
+import { createUser, fetchUsers, updateUser } from '../../utils/services/api';
 import AddUser from '../form/AddUser';
 import User from '../User';
 
@@ -10,6 +11,28 @@ const Users = () => {
 	const [selectedUser, setSelectedUser] = useState(null);
 	const [formError, setFormError] = useState({});
 
+	const requiredField = {
+		name: true,
+		phone: true,
+	};
+	const validate = () => {
+		const phone = requiredField?.phone;
+		const errorObject = {};
+		if (requiredField?.name && !selectedUser?.name) {
+			errorObject['name'] = 'name is required';
+		}
+		if (phone && !selectedUser?.phone) {
+			errorObject['phone'] = 'phone is required';
+		} else if (phone && selectedUser?.phone?.length !== 11) {
+			errorObject['phone'] = 'phone should be of 11 digits';
+		} else if (phone && isNaN(selectedUser?.phone)) {
+			errorObject['phone'] = 'Please Enter digits only';
+		} else {
+			return errorObject;
+		}
+		return errorObject;
+	};
+
 	const handleDisappearError = () => {
 		setFormError({});
 	};
@@ -18,9 +41,10 @@ const Users = () => {
 		setSelectedUser({ ...selectedUser, [e.target.name]: e.target.value });
 	};
 
-	const onModalClose = () => {
+	const handleModalClose = () => {
 		setIsOpen(false);
 		setSelectedUser(null);
+		setFormError({});
 	};
 
 	const fetchUserList = useCallback(() => {
@@ -35,30 +59,44 @@ const Users = () => {
 		fetchUserList();
 	}, [fetchUserList]);
 
-	const editClickHandler = (user) => {
-		setSelectedUser(user);
-		setIsOpen(true);
-	};
-
-	const updatedUserHandler = () => {
-		const toBeUpdated = users?.find((user) => user.id === selectedUser?.id);
-		const userIndex = users?.findIndex((user) => user.id === selectedUser.id);
-		if (toBeUpdated) {
-			setSelectedUser({
-				...selectedUser,
-			});
+	const handleUpdateUser = () => {
+		try {
+			updateUser(selectedUser);
+			const userIndex = users?.findIndex((user) => user?.id === selectedUser?.id);
+			let updatedUserAtIndex = [...users];
+			updatedUserAtIndex[userIndex] = selectedUser;
+			setUsers(updatedUserAtIndex);
+			handleModalClose();
+			toast.success('User is updated successfully');
+		} catch (error) {
+			toast.error('check your connection');
+			handleModalClose();
 		}
-		let updatedUserAtIndex = [...users];
-		updatedUserAtIndex[userIndex] = selectedUser;
-		setUsers(updatedUserAtIndex);
-		onModalClose();
 	};
 
-	const addUserHandler = () => {
-		const user_id = users[users.length - 1].id + 1;
+	const handleAddUser = (selectedUser) => {
+		try {
+			createUser(selectedUser);
+			const user_id = users[users.length - 1].id + 1;
+			handleModalClose();
+			setUsers([...users, { ...selectedUser, id: user_id }]);
+		} catch (error) {
+			toast.error('check your connection');
+			handleModalClose();
+		}
+	};
 
-		onModalClose();
-		setUsers([...users, { ...selectedUser, id: user_id }]);
+	const submissionHandler = (e) => {
+		e.preventDefault();
+		const error = validate();
+		setFormError(error);
+		if (Object.keys(error).length === 0) {
+			if (!selectedUser?.id) {
+				handleAddUser(selectedUser);
+			} else {
+				handleUpdateUser(selectedUser);
+			}
+		}
 	};
 
 	return (
@@ -71,19 +109,15 @@ const Users = () => {
 					{error}
 				</h1>
 			) : (
-				<User data={users} editClickHandler={editClickHandler} />
+				<User data={users} setSelectedUser={setSelectedUser} setIsOpen={setIsOpen} />
 			)}
 			<AddUser
 				modalIsOpen={modalIsOpen}
-				onModalClose={onModalClose}
+				onModalClose={handleModalClose}
 				selectedUser={selectedUser}
-				setError={setError}
-				handleDisappearError={handleDisappearError}
 				onChangeHandler={onChangeHandler}
 				formError={formError}
-				setFormError={setFormError}
-				updatedUserHandler={updatedUserHandler}
-				addUserHandler={addUserHandler}
+				submissionHandler={submissionHandler}
 			/>
 		</div>
 	);

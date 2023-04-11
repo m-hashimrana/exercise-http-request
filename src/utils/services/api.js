@@ -11,34 +11,25 @@ export const fetchUsers = async (setUsers, setError) => {
 	setUsers(data);
 };
 
-export const handleUserSubmission = async (selectedUser) => {
-	if (selectedUser?.id) {
-		let updatedUser = [
-			{
-				...selectedUser,
-			},
-		];
-		const response = await fetch(`${userUrl}/${selectedUser.id}`, {
-			method: 'PUT',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(updatedUser),
-		});
-		if (!response.ok) {
-			throw new Error('Failed to update user!');
-		}
-	} else {
-		const response = await fetch(`${userUrl}`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(selectedUser),
-		});
+export const updateUser = async (selectedUser) => {
+	let updatedUser = [{ ...selectedUser }];
+	const response = await fetch(`${userUrl}/${selectedUser.id}`, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(updatedUser),
+	});
+	!response.ok ? toast.error('Failed to update user!') : toast('Updated User Sucessfully');
+};
 
-		if (!response.ok) {
-			throw new Error('Failed to create user!');
-		}
-	}
+export const createUser = async (selectedUser) => {
+	const response = await fetch(`${userUrl}`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(selectedUser),
+	});
+	!response.ok ? toast.error('Failed to create user!') : toast('Created User Sucessfully');
 };

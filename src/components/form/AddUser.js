@@ -1,7 +1,5 @@
 import React from 'react';
 import Modal from 'react-modal';
-import { toast } from 'react-toastify';
-import { handleUserSubmission } from '../../utils/services/api';
 import Input from '../common/Input';
 
 const customStyles = {
@@ -12,53 +10,9 @@ const customStyles = {
 	},
 };
 
-const AddUser = ({
-	modalIsOpen,
-	onModalClose,
-	selectedUser,
-	setError,
-	onChangeHandler,
-	formError,
-	setFormError,
-	updatedUserHandler,
-	addUserHandler,
-}) => {
-	const requiredField = {
-		name: true,
-		phone: true,
-	};
-
-	const submissionHandler = async (e) => {
-		e.preventDefault();
-
-		if (requiredField.name && !selectedUser?.name) {
-			setFormError((prevFormError) => ({ ...prevFormError, name: 'name is required' }));
-			return;
-		}
-		if (
-			requiredField.phone &&
-			(!selectedUser?.phone || selectedUser.phone.length !== 11 || isNaN(selectedUser.phone))
-		) {
-			setFormError((prevFormError) => ({ ...prevFormError, phone: 'phone must be exactly 11 digits' }));
-			return;
-		}
-
-		try {
-			handleUserSubmission(selectedUser);
-			if (selectedUser?.id) {
-				updatedUserHandler();
-				toast('Updated the user successfully');
-			} else {
-				addUserHandler();
-				toast.success('User is Added successfully');
-			}
-		} catch (error) {
-			setError(error);
-		}
-	};
-
+const AddUser = ({ modalIsOpen, onModalClose, selectedUser, onChangeHandler, formError, submissionHandler }) => {
 	return (
-		<Modal isOpen={modalIsOpen} onRequestClose={onModalClose} contentLabel='Example Modal' style={customStyles}>
+		<Modal isOpen={modalIsOpen} onRequestClose={onModalClose} style={customStyles}>
 			<span className='cross' onClick={onModalClose}>
 				X
 			</span>
