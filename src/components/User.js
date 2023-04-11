@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import TableCell from './TableCell';
 
 const User = ({ data, setIsOpen, setSelectedUser }) => {
-	console.log('dta', data);
 	const handleEdit = (user) => {
 		setSelectedUser(user);
 		setIsOpen(true);
@@ -22,7 +21,7 @@ const User = ({ data, setIsOpen, setSelectedUser }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{data?.data?.map((user) => (
+					{data?.map((user) => (
 						<tr key={user.id}>
 							<TableCell title={`${user?.id}`} width={'3%'} />
 							<TableCell title={`${user?.name}`} width={'17%'} />

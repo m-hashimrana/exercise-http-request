@@ -47,17 +47,20 @@ const Users = () => {
 		setFormError({});
 	};
 
-	const fetchUserList = useCallback(() => {
-		try {
-			fetchUsers(setUsers);
-		} catch (error) {
-			setError(error);
-		}
-	}, []);
+	// const fetchUserList = useCallback(() => {
+	// 	try {
+	// 		fetchUsers(setUsers);
+	// 	} catch (error) {
+	// 		setError(error);
+	// 	}
+	// }, []);
 
+	// useEffect(() => {
+	// 	fetchUserList();
+	// }, [fetchUserList]);
 	useEffect(() => {
-		fetchUserList();
-	}, [fetchUserList]);
+		fetchUsers(setUsers);
+	}, []);
 
 	const handleUpdateUser = () => {
 		try {
@@ -80,6 +83,7 @@ const Users = () => {
 			const user_id = users[users.length - 1].id + 1;
 			handleModalClose();
 			setUsers([...users, { ...selectedUser, id: user_id }]);
+			toast.success('User is added successfully');
 		} catch (error) {
 			toast.error('check your connection');
 			handleModalClose();
