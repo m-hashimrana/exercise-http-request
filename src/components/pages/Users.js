@@ -6,7 +6,6 @@ import User from '../User';
 
 const Users = () => {
 	const [users, setUsers] = useState([]);
-	const [error, setError] = useState(null);
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [selectedUser, setSelectedUser] = useState(null);
 	const [formError, setFormError] = useState({});
@@ -108,13 +107,8 @@ const Users = () => {
 			<button className='button' onClick={() => setIsOpen(true)}>
 				Add User
 			</button>
-			{error ? (
-				<h1 className='errorMessage' style={{ fontSize: '20px', fontWeight: 'bolder' }}>
-					{error}
-				</h1>
-			) : (
-				<User data={users} setSelectedUser={setSelectedUser} setIsOpen={setIsOpen} />
-			)}
+
+			<User data={users} setSelectedUser={setSelectedUser} setIsOpen={setIsOpen} />
 			<AddUser
 				modalIsOpen={modalIsOpen}
 				onModalClose={handleModalClose}
