@@ -46,20 +46,9 @@ const Users = () => {
 		setFormError({});
 	};
 
-	// const fetchUserList = useCallback(() => {
-	// 	try {
-	// 		fetchUsers(setUsers);
-	// 	} catch (error) {
-	// 		setError(error);
-	// 	}
-	// }, []);
-
-	// useEffect(() => {
-	// 	fetchUserList();
-	// }, [fetchUserList]);
 	useEffect(() => {
 		fetchUsers(setUsers);
-	}, []);
+	}, [fetchUsers]);
 
 	const handleUpdateUser = () => {
 		try {
