@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { createUser, fetchUsers, updateUser } from '../../utils/services/api';
+import { fetchPosts } from '../../utils/services/postApi';
 import AddUser from '../form/AddUser';
 import User from '../User';
+import UserPosts from './UserPosts';
 
 const Users = () => {
 	const [users, setUsers] = useState([]);
@@ -46,9 +48,13 @@ const Users = () => {
 		setFormError({});
 	};
 
+	const handleFetchUsers = async () => {
+		const totalUsers = await fetchUsers();
+		setUsers(totalUsers);
+	};
 	useEffect(() => {
-		fetchUsers(setUsers);
-	}, [fetchUsers]);
+		handleFetchUsers();
+	}, []);
 
 	const handleUpdateUser = () => {
 		try {

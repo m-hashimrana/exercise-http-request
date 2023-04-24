@@ -66,3 +66,29 @@ label {
 	font-weight: 400;
 	margin: unset;
 }
+.post {
+	background-color: skyblue;
+	width: 40%;
+	margin: 20px auto;
+	border-radius: 18px;
+	padding: 8px 10px;
+}
+.post h1 {
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	font-style: italic;
+}
+.post p {
+	max-width: 85%;
+	margin: 0 auto;
+	text-align: center;
+	margin: 20px;
+}
+.post > span {
+	background-color: #232323;
+	color: white;
+	padding: 5px 20px;
+	border-radius: 8px;
+	cursor: pointer;
+}
