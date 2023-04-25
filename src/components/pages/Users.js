@@ -11,6 +11,7 @@ const Users = () => {
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [selectedUser, setSelectedUser] = useState(null);
 	const [formError, setFormError] = useState({});
+	const [searchUser, setSearchUser] = useState('');
 
 	const requiredField = {
 		name: true,
@@ -50,11 +51,16 @@ const Users = () => {
 
 	const handleFetchUsers = async () => {
 		const totalUsers = await fetchUsers();
-		setUsers(totalUsers);
+		if (searchUser) {
+			const searchedUser = totalUsers?.filter((user) => user?.name.toLowerCase().includes(searchUser));
+			setUsers(searchedUser);
+		} else {
+			setUsers(totalUsers);
+		}
 	};
 	useEffect(() => {
 		handleFetchUsers();
-	}, []);
+	}, [searchUser]);
 
 	const handleUpdateUser = () => {
 		try {
@@ -102,7 +108,12 @@ const Users = () => {
 			<button className='button' onClick={() => setIsOpen(true)}>
 				Add User
 			</button>
-
+			<input
+				className='searchUser'
+				placeholder='search...'
+				value={searchUser}
+				onChange={(e) => setSearchUser(e.target.value)}
+			/>
 			<User data={users} setSelectedUser={setSelectedUser} setIsOpen={setIsOpen} />
 			<AddUser
 				modalIsOpen={modalIsOpen}
