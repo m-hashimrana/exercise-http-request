@@ -42,7 +42,6 @@ const UserPosts = () => {
 	return (
 		<>
 			<h3>{userName?.name} has following posts</h3>
-			{/* {posts?.totalPosts.map((post) => ( */}
 			{currentPosts?.map((post) => (
 				<>
 					<div className='post' key={post?.user?.totalPosts?.id}>

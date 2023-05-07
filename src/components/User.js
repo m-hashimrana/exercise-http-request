@@ -23,7 +23,7 @@ const User = ({ data, setIsOpen, setSelectedUser }) => {
 						<TableCell title={'Phone'} />
 						<TableCell title={'Website'} width={'15%'} />
 						<TableCell title={'UserName'} width={'10%'} />
-						<TableCell title={''} width={'10%'} />
+						<TableCell title={''} width={'%'} />
 					</tr>
 				</thead>
 				<tbody>
@@ -35,7 +35,7 @@ const User = ({ data, setIsOpen, setSelectedUser }) => {
 							<TableCell title={`${user?.phone}`} />
 							<TableCell title={`${user?.website ?? '_'}`} width={'15%'} />
 							<TableCell title={`${user?.username ?? '_'}`} width={'10%'} />
-							<TableCell title={`Edit`} onClick={() => handleEdit(user)} width={'10%'} />
+							<TableCell title={`Edit`} cursor={'pointer'} onClick={() => handleEdit(user)} width={'5%'} />
 						</tr>
 					))}
 				</tbody>
