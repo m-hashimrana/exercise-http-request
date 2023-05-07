@@ -8,3 +8,98 @@
 .thead-light > tr > td {
 	font-weight: bold;
 }
+
+.edit {
+	padding: 12px;
+	text-decoration: underline !important;
+	color: #007bff !important;
+	cursor: pointer;
+}
+.edit:hover {
+	color: navy !important;
+}
+
+.userForm {
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	margin: 0 auto;
+}
+.ReactModal__Content--after-open {
+	background-color: slategrey !important;
+	height: 60vh;
+}
+.button {
+	background-color: skyblue;
+	border: none;
+	outline: none;
+	border-radius: 8px;
+	margin: 10px auto;
+	width: 150px;
+}
+.cross {
+	color: #232323;
+	font-weight: bolder;
+	cursor: pointer;
+	background-color: skyblue;
+	border-radius: 50%;
+	padding: 5px;
+	float: right;
+	width: 30px;
+	height: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+input {
+	border: none;
+	outline: none;
+	padding: 5px 10px;
+	border-radius: 8px;
+}
+label {
+	font-weight: 500;
+}
+.errorMessage {
+	color: red;
+	font-size: 14px;
+	font-weight: 400;
+	margin: unset;
+}
+.post {
+	background-color: skyblue;
+	width: 40%;
+	margin: 20px auto;
+	border-radius: 18px;
+	padding: 8px 10px;
+}
+.post h1 {
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	font-style: italic;
+}
+.post p {
+	max-width: 85%;
+	margin: 0 auto;
+	text-align: center;
+	margin: 20px;
+}
+.post > span {
+	background-color: #232323;
+	color: white;
+	padding: 5px 20px;
+	border-radius: 8px;
+	cursor: pointer;
+}
+.searchUser {
+	border: 1px solid #232323;
+	float: right;
+	margin: 3px;
+}
+
+.pagination li:last-child a {
+	color: grey !important;
+	cursor: default !important;
+	background: none !important;
+}

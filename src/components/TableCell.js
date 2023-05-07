@@ -1,8 +1,8 @@
 import React from 'react';
 
-const TableCell = ({ title, customWidth }) => {
+const TableCell = ({ title, width, onClick, cursor, textAlign }) => {
 	return (
-		<td scope='col-2' className='tableCell' style={{ width: customWidth }}>
+		<td style={{ width, cursor, textAlign }} onClick={onClick}>
 			{title}
 		</td>
 	);

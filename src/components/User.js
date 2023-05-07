@@ -1,29 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import TableCell from './TableCell';
 
-const User = ({ data }) => {
+const User = ({ data, setIsOpen, setSelectedUser }) => {
+	const navigate = useNavigate();
+	const handleEdit = (user) => {
+		setSelectedUser(user);
+		setIsOpen(true);
+	};
+	const handlePath = (user) => {
+		navigate(`/post/${user?.id}`);
+	};
+
 	return (
 		<div>
 			<table className='table'>
 				<thead className='thead-light'>
 					<tr>
-						<TableCell title={'ID'} customWidth={'5%'} />
-						<TableCell title={'Name'} customWidth={'20%'} />
-						<TableCell title={'Email'} customWidth={'25%'} />
+						<TableCell title={'ID'} width={'3%'} />
+						<TableCell title={'Name'} width={'17%'} />
+						<TableCell title={'Email'} width={'15%'} />
 						<TableCell title={'Phone'} />
-						<TableCell title={'Website'} customWidth={'15%'} />
-						<TableCell title={'UserName'} customWidth={'10%'} />
+						<TableCell title={'Website'} width={'15%'} />
+						<TableCell title={'UserName'} width={'10%'} />
+						<TableCell title={''} width={'%'} />
 					</tr>
 				</thead>
 				<tbody>
 					{data?.map((user) => (
 						<tr key={user.id}>
-							<TableCell title={`${user?.id}`} customWidth={'5%'} />
-							<TableCell title={`${user?.name}`} customWidth={'20%'} />
-							<TableCell title={`${user?.email}`} customWidth={'25%'} />
+							<TableCell title={`${user?.id}`} width={'3%'} />
+							<TableCell title={`${user?.name}`} cursor='pointer' width={'17%'} onClick={() => handlePath(user)} />
+							<TableCell title={`${user?.email ?? '_'}`} width={'15%'} />
 							<TableCell title={`${user?.phone}`} />
-							<TableCell title={`${user?.website}`} customWidth={'15%'} />
-							<TableCell title={`${user?.username}`} customWidth={'10%'} />
+							<TableCell title={`${user?.website ?? '_'}`} width={'15%'} />
+							<TableCell title={`${user?.username ?? '_'}`} width={'10%'} />
+							<TableCell title={`Edit`} cursor={'pointer'} onClick={() => handleEdit(user)} width={'5%'} />
 						</tr>
 					))}
 				</tbody>
